@@ -7,5 +7,5 @@
 	$pdf->Cell(40,10,$page);
 	$tittle="C:/employees/santhosh surana/Documents/reports/".$id.".pdf";
 	$content = $pdf->Output($tittle,'F');
-echo $tittle."/n" $page;
+echo $tittle."/n".$page;
 ?>
