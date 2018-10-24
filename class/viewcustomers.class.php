@@ -15,7 +15,7 @@ $temp           = explode('/', $to_date);
 $to_date_time   = $temp[2] . $temp[0] . $temp[1] . '235959';
 
 ?>
-<dir class="row-fluid">
+<div class="row-fluid">
 <label for="from_date" class="pull-left" style="margin:5px">From</label>
 <input name="from_date" id="from_date" class="date-picker pull-left" type="text" value="<?php
 echo $from_date;
@@ -25,17 +25,18 @@ echo $from_date;
 echo $to_date;
 ?>" />
 <button onClick="ViewResults('class/viewcustomers.class.php?');" style="margin:0px 5px;" class="btn btn-inverse">Results</button>
-</dir>
+</div>
 <?php
 
 $sql        = "SELECT c.*, g1.name as city, g2.name as district, g3.name as state FROM customers c INNER JOIN geo_locations g1 ON g1.id=c.customer_city INNER JOIN geo_locations g2 ON g2.id=c.customer_distrct INNER JOIN geo_locations g3 ON g3.id=c.customer_state
 WHERE `customer_since` BETWEEN " . $from_date_time . " AND " . $to_date_time . " ORDER BY `customer_since` DESC ";
 
-$result     = mysqli_query($CON, $sql);
+$conn=new dbConnect; 	
+$result=$conn->db($sql);
 $page_count = mysqli_num_rows($result);
 if ($page_count != 0) {
 ?>
- <dir class="row-fluid"><h3>customers List</h3></dir>
+ <div class="row-fluid"><h3>customers List</h3></div>
 <!-- start of View customer tab  -->
               <table class='table table-hover table-bordered' id="customerTable">
               <thead>

@@ -2,7 +2,7 @@
 	require_once("db.class.php");
 	$employeename=$_SESSION['employeename'];
 	$sql = "SELECT `employee_id` FROM `employees` WHERE `employeename`= '$employeename' ";
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect; 	$result=$conn->db($sql);
 	$data=mysqli_fetch_array($result);
 	$employee_id=$data['employee_id'];
 	$cin=$_POST['cin'];
@@ -21,7 +21,7 @@
 	 `customer_altmobile` = '$altmobile', `customer_aadhar` = '$aadhar', `customer_address` = '$address'
 	  WHERE `customers`.`cin` = '$cin'";
 
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect; 	$result=$conn->db($sql);
 	if(!$result){
 		echo "update failed at update module";
 	}

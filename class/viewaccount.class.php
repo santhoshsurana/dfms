@@ -31,15 +31,15 @@
 	$page_next=$page+15;
 	
 $sql="SELECT * FROM `loans` WHERE t.patient_name=p .id AND t.test_type='1' AND loan_date BETWEEN ".$from_date_time." AND ".$to_date_time." ORDER BY loan_date DESC LIMIT ".$page_back. ", ".$page_back_limit;
-$result=mysqli_query($CON,$sql);
+$conn=new dbConnect; 	$result=$conn->db($sql);
 $back_page_count=mysqli_num_rows($result);
 
 $sql="SELECT * FROM `loans` WHERE t.patient_name=p .id AND t.test_type='1' AND loan_date BETWEEN ".$from_date_time." AND ".$to_date_time." ORDER BY loan_date DESC LIMIT " .$page_next. ", 1"; 
-$result=mysqli_query($CON,$sql);
+$conn=new dbConnect; 	$result=$conn->db($sql);
 $next_page_count=mysqli_num_rows($result); 
 
 $sql="SELECT * FROM `loans` WHERE t.patient_name=p .id AND t.test_type='1' AND loan_date BETWEEN ".$from_date_time." AND ".$to_date_time;
-$result=mysqli_query($CON,$sql);
+$conn=new dbConnect; 	$result=$conn->db($sql);
 $total_amount=mysqli_fetch_row($result);
 ?>
 <button onClick="ViewResults('class/viewtest.class.php?p=<?php echo $page_back; ?>&from_date=<?php echo $from_date;?>&to_date=<?php echo $to_date;?>');" style="margin:0px 5px;" <?php if($back_page_count==0){echo 'disabled'; }?> class="btn pull-left"><i class="icon-circle-arrow-left"></i>back</button>
@@ -51,7 +51,7 @@ $total_amount=mysqli_fetch_row($result);
 <button onClick="ViewResults('class/viewtest.class.php?');" style="margin:0px 5px;" class="btn btn-inverse">Results</button>Total Amount: Rs <?php if($total_amount[0]!=''){echo $total_amount[0];}else{echo '0';}?>/-
 
 <?php $sql="SELECT t.id, t.test_name, p.first_name, p.last_name, t.total_amount, t.paid_amount, t.due_amount, loan_date FROM patients p, tests t WHERE t.patient_name=p .id AND t.test_type='1' AND loan_date BETWEEN ".$from_date_time." AND ".$to_date_time." ORDER BY loan_date DESC LIMIT " .$page. ", 15";
-$result=mysqli_query($CON,$sql);
+$conn=new dbConnect; 	$result=$conn->db($sql);
 $page_count=mysqli_num_rows($result);
 if($page_count!=0){ ?>
 <!-- start of view test tab  -->

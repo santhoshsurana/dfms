@@ -2,7 +2,7 @@
  	$cin=$_GET['cin'];
 	$sql = "SELECT c.*, g1.name as city, g2.name as district, g3.name as state FROM customers c INNER JOIN geo_locations g1 ON g1.id=c.customer_city INNER JOIN geo_locations g2 ON g2.id=c.customer_distrct INNER JOIN geo_locations g3 ON g3.id=c.customer_state
 WHERE `cin`=$cin";
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect; 	$result=$conn->db($sql);
 	$data=mysqli_fetch_array($result);
 ?>
 
@@ -65,7 +65,7 @@ WHERE `cin`=$cin";
                         <select name="city" id="city" onblur="getState();" >
                   <?php
 $sql = "SELECT * FROM `geo_locations` WHERE location_type='subdistrict' ORDER BY name";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 while ($city = mysqli_fetch_array($result))
 {
@@ -87,7 +87,7 @@ while ($city = mysqli_fetch_array($result))
                   <?php
                   
 $sql = "SELECT * FROM `geo_locations` WHERE location_type='district' ORDER BY name";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 
 while ($dist = mysqli_fetch_array($result))
@@ -108,7 +108,7 @@ while ($dist = mysqli_fetch_array($result))
                         <select name="state" id="state"  >
                   <?php
 $sql = "SELECT * FROM `geo_locations` WHERE location_type='state' ORDER BY name";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 while ($state = mysqli_fetch_array($result))
 {

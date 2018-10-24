@@ -16,7 +16,7 @@ $temp           = explode('/', $to_date);
 $to_date_time   = $temp[2] . $temp[0] . $temp[1] . '235959';
 
 ?>
-<dir class="row-fluid">
+<div class="row-fluid">
 
 
 <label for="from_date" class="pull-left" style="margin:5px">From</label>
@@ -29,20 +29,21 @@ echo $to_date;
 ?>" />
 <input name="loan_type" id="loan_type"  type="hidden" value="2" />
 <button onClick="viewReports('interest.php?');" style="margin:0px 5px;" class="btn btn-inverse pull-left">Results</button>
-</dir>
+</div>
 <?php
 
 $sql = "SELECT loan_id,loan_date from loans where loan_type=2 and loan_status=1 and loan_date BETWEEN " . $from_date_time . " AND " . $to_date_time ;
-$result     = mysqli_query($CON, $sql);
+$conn=new dbConnect; 	
+$conn=new dbConnect; 	$result=$conn->db($sql);
  while ($data = mysqli_fetch_array($result)) {
 $date=date('Y-m')."-".date("d", strtotime($data['loan_date']));
     $sql="INSERT INTO transactions (txn_date, txn_amount, loan_id) SELECT * FROM (SELECT '".$date."', '0', '".$data['loan_id']."') AS temp WHERE not EXISTS (SELECT txn_date FROM transactions WHERE txn_date='".$date."' and loan_id=".$data['loan_id'].") LIMIT 1";   
-     mysqli_query($CON, $sql);
+     $conn->db($sql);
  }
 
 
 $sql        = "SELECT t.*, l.*, c.customer_first_name, c.customer_last_name, c.customer_mobile, c.customer_address FROM transactions t, loans l, customers c WHERE t.txn_amount<((l.loan_amount)*(l.loan_roi/100))  AND l.loan_id=t.loan_id and l.cin=c.cin and l.loan_type=".$loan_type." AND t.txn_date BETWEEN " . $from_date_time . " AND " . $to_date_time . " ORDER BY l.cin DESC ";
-$result     = mysqli_query($CON, $sql);
+$conn=new dbConnect; 	$conn->db($sql);
 $page_count = mysqli_num_rows($result);
 if ($page_count != 0) {
 ?>
@@ -70,11 +71,11 @@ if ($page_count != 0) {
     while ($data = mysqli_fetch_array($result)) {
 
         $sql = "SELECT SUM(txn_amount) FROM `transactions` WHERE loan_id=".$data['loan_id'];
-        $txn_sum_result = mysqli_query($CON, $sql);
+        $txn_sum_result = $conn->db($sql);
         $txn_sum = mysqli_fetch_array($txn_sum_result);
 
         $sql = "SELECT COUNT(txn_amount) FROM `transactions` WHERE loan_id=".$data['loan_id']." AND txn_amount='0'";
-        $txn_count_result = mysqli_query($CON, $sql);
+        $txn_count_result = $conn->db($sql);
         $txn_count = mysqli_fetch_array($txn_count_result);
 
         $data['loan_date'] = date("d-m-Y h:i:a", strtotime($data['loan_date']));

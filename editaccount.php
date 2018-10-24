@@ -4,10 +4,10 @@ require_once ("class/db.class.php");
 $cin = $_GET['cin'];
 $loan_id = $_GET['loan_id'];
 $sql = "SELECT l.*, c.customer_first_name,c.customer_last_name FROM loans l, customers c WHERE l.cin=c.cin AND l.loan_id=" . $loan_id;
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 $data = mysqli_fetch_array($result);
 $sql = "SELECT SUM(txn_amount) FROM `transactions` WHERE loan_id='$loan_id '";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 $paid = mysqli_fetch_array($result);
 $data['loan_date']= date("m/d/Y", strtotime($data['loan_date']));
 ?>
@@ -185,7 +185,7 @@ else
 }
 
 $sql = "SELECT * FROM `transactions` WHERE loan_id='$loan_id '";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 while ($txn_list = mysqli_fetch_array($result))
   {

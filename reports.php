@@ -37,7 +37,8 @@ echo $to_date;
 <?php
 
 $sql        = "SELECT t.*, l.*, c.customer_first_name, c.customer_last_name, c.customer_mobile, c.customer_address FROM transactions t, loans l, customers c WHERE t.txn_amount<((l.loan_amount)/(l.loan_duration))  AND l.loan_id=t.loan_id and l.cin=c.cin and l.loan_type=".$loan_type." AND t.txn_date BETWEEN " . $from_date_time . " AND " . $to_date_time . " ORDER BY l.cin DESC ";
-$result     = mysqli_query($CON, $sql);
+$conn=new dbConnect; 	
+$conn=new dbConnect; 	$result=$conn->db($sql);
 $page_count = mysqli_num_rows($result);
 if ($page_count != 0) {
 ?>
@@ -67,11 +68,11 @@ if ($page_count != 0) {
     while ($data = mysqli_fetch_array($result)) {
 
         $sql = "SELECT SUM(txn_amount) FROM `transactions` WHERE loan_id=".$data['loan_id'];
-        $txn_sum_result = mysqli_query($CON, $sql);
+        $txn_sum_result = $conn->db($sql);
         $txn_sum = mysqli_fetch_array($txn_sum_result);
 
         $sql = "SELECT COUNT(txn_amount) FROM `transactions` WHERE loan_id=".$data['loan_id']." AND txn_amount='0'";
-        $txn_count_result = mysqli_query($CON, $sql);
+        $txn_count_result = $conn->db($sql);
         $txn_count = mysqli_fetch_array($txn_count_result);
 
         $data['loan_date'] = date("d-m-Y h:i:a", strtotime($data['loan_date']));

@@ -58,7 +58,7 @@ require_once ("class/db.class.php");
                         <select name="city" id="city" onblur="getState();">
                   <?php
 $sql = "SELECT * FROM `geo_locations` WHERE location_type='subdistrict' ORDER BY name";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 while ($city = mysqli_fetch_array($result))
 {
@@ -79,7 +79,7 @@ while ($city = mysqli_fetch_array($result))
                         <select name="district" id="district" >
                   <?php
 $sql = "SELECT * FROM `geo_locations` WHERE location_type='district' ORDER BY name";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 while ($dist = mysqli_fetch_array($result))
 {
@@ -99,7 +99,7 @@ while ($dist = mysqli_fetch_array($result))
                         <select name="state" id="state"  >
                   <?php
 $sql = "SELECT * FROM `geo_locations` WHERE location_type='state' ORDER BY name";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 while ($state = mysqli_fetch_array($result))
 {

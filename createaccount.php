@@ -3,7 +3,8 @@
 require_once ("class/db.class.php");
 
 $sql = "SELECT cin, customer_first_name, customer_last_name FROM customers ORDER BY customer_since DESC";
-$result = mysqli_query($CON, $sql);
+$conn=new dbConnect; 
+$result = $conn->db($sql);
 ?>
 <!-- start of Create test tab  -->
     <div class='row-fluid'>

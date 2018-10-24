@@ -28,10 +28,10 @@ else
 
 $page_next = $page + 15;
 $sql = "SELECT * FROM `customers` WHERE `customer_mobile` LIKE '%$search%' OR `customer_altmobile` LIKE '%$search%' OR`cin` LIKE '%$search%' OR `customer_first_name` LIKE '%$search%' OR  `customer_last_name` LIKE '%$search%'  ORDER BY customer_since DESC LIMIT " . $page_back . ", " . $page_back_limit;
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 $back_page_count = mysqli_num_rows($result);
 $sql = "SELECT * FROM `customers` WHERE `customer_mobile` LIKE '%$search%' OR `customer_altmobile` LIKE '%$search%' OR`cin` LIKE '%$search%' OR `customer_first_name` LIKE '%$search%' OR  `customer_last_name` LIKE '%$search%'  ORDER BY customer_since DESC LIMIT " . $page_next . ", 1";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 $next_page_count = mysqli_num_rows($result); ?>
      
 <button onClick="display('class/search.class.php?p=<?php
@@ -53,7 +53,7 @@ if ($next_page_count == 0)
 
 <?php
 $sql = "SELECT * FROM `customers` WHERE `customer_mobile` LIKE '%$search%' OR `customer_altmobile` LIKE '%$search%' OR`cin` LIKE '%$search%' OR `customer_first_name` LIKE '%$search%' OR  `customer_last_name` LIKE '%$search%'  ORDER BY customer_since DESC LIMIT " . $page . ", 15";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 $page_count = mysqli_num_rows($result);
 
 if ($page_count != 0)

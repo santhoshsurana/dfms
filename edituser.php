@@ -1,7 +1,7 @@
  <?php require_once("class/db.class.php");
  	$employeeId=$_GET['employeeId'];
 	$sql = "SELECT * FROM `employees` WHERE `employee_id`=".$employeeId;
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect; 	$result=$conn->db($sql);
 	$data=mysqli_fetch_array($result);
   if ($data['employee_role']=='1') {
     $flag1='selected';

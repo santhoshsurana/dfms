@@ -2,7 +2,7 @@
 	require_once("db.class.php");
 	$employeename=$_SESSION['employeename'];
 	$sql = "SELECT `employee_id` FROM `employees` WHERE `employeename`= '$employeename' ";
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect; 	$result=$conn->db($sql);
 	$data=mysqli_fetch_array($result);
 	$employee_id=$data['employee_id'];
 	$firstname=$_POST['firstname'];
@@ -22,7 +22,7 @@
 	 `customer_distrct`, `customer_state`, `customer_since`, `added_by`) 
 	VALUES (NULL, '$firstname', '$lastname', '$age', '$gender', '$occupation', '$mobile', '$altmobile', 
 	'$aadhar', '$address', '$city', '$district', '$state', CURRENT_TIMESTAMP, '$employee_id');"; 
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect; 	$result=$conn->db($sql);
 	if(!$result){
 		echo "0";
 	}

@@ -2,7 +2,7 @@
 	
 	$employeeId=$_POST['employeeId'];
 	$sql = "DELETE FROM `employees` WHERE `employee_id`='$employeeId'";
-	mysqli_query($CON, $sql);
+	$conn->db($sql);
 	echo"employee account has been deleted!";
 	
 ?>

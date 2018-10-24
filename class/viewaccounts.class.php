@@ -30,11 +30,12 @@ if ($page_back < 0) {
 }
 $page_next       = $page + 10;
 $sql             = "SELECT l.*, c.customer_first_name,c.customer_last_name FROM loans l, customers c WHERE l.cin=c.cin AND l.loan_type=".$loan_type." AND  l.loan_date  BETWEEN " . $from_date_time . " AND " . $to_date_time . " ORDER BY `loan_date` DESC LIMIT " . $page_back . ", " . $page_back_limit;
-
-$result          = mysqli_query($CON, $sql);
+$conn=new dbConnect; 
+$result          = $conn->db($sql);
 $back_page_count = mysqli_num_rows($result);
 $sql             = "SELECT l.*, c.customer_first_name,c.customer_last_name FROM loans l, customers c WHERE l.cin=c.cin AND l.loan_type=".$loan_type." AND  l.loan_date  BETWEEN " . $from_date_time . " AND " . $to_date_time . " ORDER BY `loan_date` DESC LIMIT " . $page_next . ", 1";
-$result          = mysqli_query($CON, $sql);
+$conn=new dbConnect; 
+$result          = $conn->db($sql);
 $next_page_count = mysqli_num_rows($result);
 ?>
 <label for="from_date" class="pull-left" style="margin:5px">From</label>
@@ -54,7 +55,8 @@ echo $to_date;
 <button onClick="viewReports('class/viewaccounts.class.php?');" style="margin:0px 5px;" class="btn btn-inverse pull">Results</button>
 <?php
 $sql        = "SELECT l.*, c.customer_first_name,c.customer_last_name FROM loans l, customers c WHERE l.cin=c.cin AND l.loan_type=".$loan_type." AND  l.loan_date  BETWEEN " . $from_date_time . " AND " . $to_date_time . " ORDER BY l.loan_date DESC ";
-$result     = mysqli_query($CON, $sql);
+$conn=new dbConnect; 
+$result=$conn->db($sql);
 $page_count = mysqli_num_rows($result);
 if ($page_count != 0) {
 ?>

@@ -1,10 +1,10 @@
 <?php session_start();
-require_once("db.class.php");
-
+	require_once("db.class.php");
 	$employeename=$_POST['employeename'];
 	$password=md5($_POST['password']);
 	$sql = "SELECT `employee_id`,`employee_role` FROM `employees` WHERE `employeename`='$employeename' AND `password`='$password'";
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect;
+	$result=$conn->db($sql);
 	$data=mysqli_fetch_array($result);
 	$count=mysqli_num_rows($result);
 	if($count==1)

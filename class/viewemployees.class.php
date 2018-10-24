@@ -14,14 +14,14 @@ if($page_back<0){
 	}
 $page_next=$page+15;
 $sql="SELECT * FROM `employees`  LIMIT ".$page_back. ", ".$page_back_limit;
-$result=mysqli_query($CON, $sql);
+$conn=new dbConnect; 	$result=$conn->db($sql);
 $back_page_count=mysqli_num_rows($result);
 $sql="SELECT * FROM `employees`  LIMIT " .$page_next. ", 1";
-$result=mysqli_query($CON, $sql);
+$conn=new dbConnect; 	$result=$conn->db($sql);
 $next_page_count=mysqli_num_rows($result); ?>    
 
 <?php $sql="SELECT * FROM `employees`  LIMIT " .$page. ", 15";
-	 $result=mysqli_query($CON,$sql);
+	 $conn=new dbConnect; 	$result=$conn->db($sql);
 	 $page_count=mysqli_num_rows($result);
 	 if($page_count!=0){ ?>
 		<!-- start of view employee tab  -->

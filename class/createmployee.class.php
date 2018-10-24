@@ -4,7 +4,7 @@
 	$password=md5($_POST['password']);
 	$role=$_POST['role'];
 	$sql = "INSERT INTO `employees` (`employee_id`, `employeename`, `password`, `employee_role`) VALUES (NULL, '$employeename', '$password', '$role');";
-	$result=mysqli_query($CON, $sql);
+	$conn=new dbConnect; 	$result=$conn->db($sql);
 	if(!$result){
 		echo "0";
 	}

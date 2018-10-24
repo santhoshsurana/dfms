@@ -26,9 +26,9 @@ $to_date_time = $temp[2] . $temp[0] . $temp[1] . '235959';
 ?>
 <!-- start of Home tab -->
 <div class='row-fluid'>
-    <h5 class="span6">Hello, <?php
-echo $_SESSION['employeename']; ?>!</h5>
-    <h5 class="span6 pull-left" align="right"><?php
+    <h5 class="span6">Hello, 
+        <?php echo $_SESSION['employeename']; ?>!</h5>
+    <h5 class="span6 pull-left" align='right'><?php
 echo date('D d M Y'); ?></h5>
     <label for="from_date" class="pull-left" style="margin:5px">From</label>
     <input name="from_date" id="from_date" class="date-picker pull-left" type="text" value="<?php
@@ -40,13 +40,14 @@ echo $to_date; ?>" />
 </div>
 
 <div class='row-fluid'>
-    <dir class="span9">
+    <div class="span9">
         <div class='row-fluid'> 
             <div class="span4">
                 <div class="board-widgets blue small-widget">
             <a href="#"><span class="widget-stat"><?php
                     $sql = "SELECT COUNT(*) FROM `customers` WHERE `customer_since` BETWEEN " . $from_date_time . " AND " . $to_date_time;
-                    $result = mysqli_query($CON, $sql);
+                    $conn=new dbConnect;
+                    $result = $conn->db($sql);
                     $data = mysqli_fetch_array($result);
 
                     if ($data[0] == "")
@@ -65,7 +66,8 @@ echo $to_date; ?>" />
         <div class="board-widgets green small-widget">
             <a href="#"><span class="widget-stat"><?php
 $sql = "SELECT COUNT(*) FROM `loans` WHERE  `loan_date` BETWEEN " . $from_date_time . " AND " . $to_date_time;
-$result = mysqli_query($CON, $sql);
+$conn=new dbConnect;
+$result = $conn->db($sql);
 $data = mysqli_fetch_array($result);
 
 if ($data[0] == "")
@@ -84,7 +86,8 @@ else
         <div class="board-widgets yellow small-widget">
             <a href="#"><span class="widget-stat">&#8377;<?php
 $sql = "SELECT SUM(txn_amount) FROM `transactions` WHERE txn_date BETWEEN " . $from_date_time . " AND " . $to_date_time;
-$result = mysqli_query($CON, $sql);
+$conn=new dbConnect;
+$result = $conn->db($sql);
 $data = mysqli_fetch_array($result);
 $collection = $data[0];
 
@@ -106,7 +109,8 @@ else
       <div class="board-widgets red small-widget">
             <a href="#"><span class="widget-stat">&#8377;<?php
 $sql = "SELECT SUM(loan_amount) FROM `loans` WHERE loan_date BETWEEN " . $from_date_time . " AND " . $to_date_time;
-$result = mysqli_query($CON, $sql);
+$conn=new dbConnect;
+$result = $conn->db($sql);
 $data = mysqli_fetch_array($result);
 $total_loan = $data[0];
 
@@ -147,7 +151,7 @@ else
         </div>
     </div>
 </div> 
-</dir>
+</div>
  <div class="span3">
     
 

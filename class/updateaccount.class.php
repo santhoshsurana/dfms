@@ -11,6 +11,6 @@
 	$commission=$_POST['commission'];
 	$guarantor=$_POST['guarantor'];
 	$sql = "UPDATE `loans` SET `loan_amount` = '$loan_amount', `loan_duration` = '$loan_duration', `loan_date` = '$date', `loan_type` = '$loan_type', `loan_roi` = '$roi', `guarantor` = '$guarantor', `commission` = '$commission' WHERE `loans`.`loan_id` = $loan_id";
-		$result=mysqli_query($CON, $sql);
+		$conn=new dbConnect; 	$result=$conn->db($sql);
 		echo $sql;
 ?>

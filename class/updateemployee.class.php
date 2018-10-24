@@ -10,7 +10,7 @@
 		$sql = "UPDATE `employees` SET `employee_role`='$role' WHERE `employees`.`employee_id` = $employee_id;";
 		echo $sql;
 	}
-	mysqli_query($CON, $sql);
+	$conn->db($sql);
 	
 	
 ?>

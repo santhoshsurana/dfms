@@ -11,7 +11,8 @@
 	$guarantor=$_POST['guarantor'];
 	$sql = "INSERT INTO `loans` 
 	(`loan_id`, `loan_amount`, `loan_date`, `loan_duration`, `loan_type`, `loan_roi`, `guarantor`, `commission`, `cin`) VALUES 	(NULL, '$loan_amount', '$date', '$loan_duration', '$loan_type', '$roi', '$guarantor', '$commission', '$cin') ";
-		$result=mysqli_query($CON, $sql);
+		$conn=new dbConnect; 	
+		$result=$conn->db($sql);
     	$loan_id = mysqli_insert_id($CON);
     	
     		switch ($loan_type) {
@@ -30,7 +31,8 @@
 for ($loan_duration;$loan_duration!=0;$loan_duration--)
 {
  $sql = "INSERT INTO `transactions` (`txn_id`, `txn_date`, `txn_amount`, `loan_id`) VALUES (NULL, '$date', NULL, $loan_id)";
- $result=mysqli_query($CON, $sql);
+ $conn=new dbConnect; 
+ 	$result=$conn->db($sql);
  $date = date('Y-m-d', strtotime($date . ' +1 '.$loan_type));
 }
 		

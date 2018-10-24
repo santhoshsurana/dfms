@@ -271,6 +271,7 @@ function logIn() {
                     document.location.href = 'index.php';
                 } else {
                     showAlert( '0', 'employee details not found tryagain!');
+                    console.log(result);
                 }
             },
         });

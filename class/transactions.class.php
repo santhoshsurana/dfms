@@ -5,7 +5,7 @@ if (isset($_GET['loan_id']))
 {
 	$loan_id = $_GET['loan_id'];
 	$sql = "SELECT l.*, c.customer_first_name,c.customer_last_name FROM loans l, customers c WHERE l.cin=c.cin AND l.loan_id=".$loan_id;
-	$result = mysqli_query($CON, $sql);
+	$result = $conn->db($sql);
 	$data = mysqli_fetch_array($result);
 	$loan_duration = $data['loan_duration'];
 	$loan_type = $data['loan_type'];
@@ -15,7 +15,7 @@ if (isset($_GET['loan_id']))
 	$commission=$data['commission'];
 	$guarantor=$data['guarantor'];
   $sql = "SELECT SUM(txn_amount) FROM `transactions` WHERE loan_id='$loan_id '";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 $paid = mysqli_fetch_array($result);
 }
 
@@ -99,7 +99,7 @@ else
 }
 
 $sql = "SELECT * FROM `transactions` WHERE loan_id='$loan_id '";
-$result = mysqli_query($CON, $sql);
+$result = $conn->db($sql);
 
 while ($txn_list = mysqli_fetch_array($result))
   {
